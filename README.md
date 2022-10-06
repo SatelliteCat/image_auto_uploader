@@ -11,3 +11,4 @@
 - macOS, `Ctrl+Shift+Cmd+4`
 - Linux/Ubuntu, `Ctrl+Shift+PrintScreen`
 - Windows, `Shift+Win+s`
+
