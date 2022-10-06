@@ -20,7 +20,7 @@ jobs:
 
     - name: Build for Windows
       env:
-        GOOS: linux
+        GOOS: windows
         GOARCH: amd64
       run: go build -ldflags "-s -w -v -H=windowsgui"
       
