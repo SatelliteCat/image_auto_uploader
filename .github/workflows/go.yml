@@ -45,10 +45,10 @@ jobs:
         include:
           - goosarch: 'windows/amd64'
             flags: '-ldflags "-s -w -v -H=windowsgui"'
-            binary-extension: ''
+            binary-extension: '.exe'
           - goosarch: 'linux/amd64'
             flags: '-ldflags "-s -w -v"'
-            binary-extension: '.exe'
+            binary-extension: ''
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -77,5 +77,6 @@ jobs:
         with:
           body_path: ".github/RELEASE-TEMPLATE.md"
           files: ${{env.BINARY_NAME}}
+          tag_name: Release ${{ github.run_number }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
