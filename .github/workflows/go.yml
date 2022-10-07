@@ -42,14 +42,13 @@ jobs:
         goosarch:
           - 'windows/amd64'
           - 'linux/amd64'
-        flags:
-          - '-ldflags "-s -w -v -H=windowsgui"'
-          - '-ldflags "-s -w -v"'
         include:
           - goosarch: 'windows/amd64'
             flags: '-ldflags "-s -w -v -H=windowsgui"'
+            binary-extension: ''
           - goosarch: 'linux/amd64'
             flags: '-ldflags "-s -w -v"'
+            binary-extension: '.exe'
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -69,7 +68,7 @@ jobs:
           echo "GOARCH=$GOARCH" >> $GITHUB_ENV
       - name: Build
         run: |
-          go build -o "$BINARY_NAME" -ldflags "-s -w -v"
+          go build -o "$BINARY_NAME"${{matrix.binary-extension}} ${{matrix.flags}}
       - name: Release Notes
         run:
           git log $(git describe HEAD~ --tags --abbrev=0)..HEAD --pretty='format:* %h %s%n  * %an <%ae>' --no-merges >> ".github/RELEASE-TEMPLATE.md"
@@ -77,8 +76,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           body_path: ".github/RELEASE-TEMPLATE.md"
-          files: |
-            ${{env.BINARY_NAME}}.exe
-            ${{env.BINARY_NAME}}
+          files: ${{env.BINARY_NAME}}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
