@@ -76,7 +76,9 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           body_path: ".github/RELEASE-TEMPLATE.md"
-          files: ${{env.BINARY_NAME}}
-          tag_name: ${{ github.run_number }}
+          files: |
+            ${{env.BINARY_NAME}}${{matrix.binary-extension}}
+            ${{env.BINARY_NAME}}
+          tag_name: release_${{ github.run_number }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
