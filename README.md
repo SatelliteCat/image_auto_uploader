@@ -6,6 +6,9 @@
 
 Для сборки для windows использовать команду: `go build -ldflags "-s -w -v -H=windowsgui"`.
 
+Для автоматического запуска программы при запуске ОС надо добавить программу в автозагрузку:
+ - Windows 10/11, `C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup`
+
 ## Скриншоты
 
 - macOS, `Ctrl+Shift+Cmd+4`
