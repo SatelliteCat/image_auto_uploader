@@ -42,6 +42,14 @@ jobs:
         goosarch:
           - 'windows/amd64'
           - 'linux/amd64'
+        flags:
+          - '-ldflags "-s -w -v -H=windowsgui"'
+          - '-ldflags "-s -w -v"'
+        include:
+          - goosarch: 'windows/amd64'
+            flags: '-ldflags "-s -w -v -H=windowsgui"'
+          - goosarch: 'linux/amd64'
+            flags: '-ldflags "-s -w -v"'
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -69,7 +77,8 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           body_path: ".github/RELEASE-TEMPLATE.md"
-          draft: true
-          files: ${{env.BINARY_NAME}}
+          files: |
+            ${{env.BINARY_NAME}}.exe
+            ${{env.BINARY_NAME}}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
